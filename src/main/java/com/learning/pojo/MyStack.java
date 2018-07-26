@@ -14,6 +14,7 @@ public class MyStack {
             try {
                 // 让占有this的减血线程，暂时释放对this的占有，并等待
                 this.wait();
+                return;
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -30,6 +31,7 @@ public class MyStack {
             try {
                 // 让占有this的减血线程，暂时释放对this的占有，并等待
                 this.wait();
+                return;
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
