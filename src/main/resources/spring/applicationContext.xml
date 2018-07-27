@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--引入jdbc配置 -->
+    <context:property-placeholder location="classpath*:properties/jdbc.properties"/>
+    <!--  扫描文件(自动将service层注入)-->
+    <context:component-scan base-package="com.learning.service"/>
+    <!--配置数据源-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+
+        <property name="url" value="${jdbc.url}"/>
+
+        <property name="username" value="${jdbc.username}"/>
+
+        <property name="password" value="${jdbc.password}"/>
+
+        <!-- 连接池最大使用连接数 -->
+        <property name="maxActive" value="20"/>
+
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="1"/>
+
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="60000"/>
+
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="3"/>
+
+        <!-- 自动清除无用连接 -->
+        <property name="removeAbandoned" value="true"/>
+
+        <!-- 清除无用连接的等待时间 -->
+        <property name="removeAbandonedTimeout" value="180"/>
+
+        <!--是否自动提交-->
+        <property name="defaultAutoCommit" value="false"/>
+
+        <!-- 连接属性 -->
+        <property name="connectionProperties" value="clientEncoding=UTF-8"/>
+    </bean>
+
+    <!-- mybatis文件配置，扫描所有mapper文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--注入数据源-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--指定要使用到到mybatis配置文件-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <!--用于配置mapper映射xml-->
+        <property name="mapperLocations" value="classpath*:com/learning/mapper/*.xml"/>
+    </bean>
+    <!-- spring与mybatis整合配置，扫描所有dao -->
+    <bean  class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.learning.mapper"/>
+
+    </bean>
+    <!-- 对数据源进行事务管理 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+</beans>

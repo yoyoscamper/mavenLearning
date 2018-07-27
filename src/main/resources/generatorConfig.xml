@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE generatorConfiguration
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
-        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd"
+        >
 
 <generatorConfiguration>
 
@@ -20,7 +21,8 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="${jdbc.driverClassName}"
-                        connectionURL="${jdbc.url}" userId="${jdbc.username}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.username}"
                         password="${jdbc.password}"/>
 
         <!-- 生成实体类地址 -->
@@ -31,13 +33,13 @@
         </javaModelGenerator>
 
         <!-- 生成mapxml文件 -->
-        <sqlMapGenerator targetPackage="com.jamedow.laodoufang.mapper"
+        <sqlMapGenerator targetPackage="com.learning.mapper"
                          targetProject="D:/">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
 
         <!-- 生成mapxml对应client，也就是接口dao -->
-        <javaClientGenerator targetPackage="com.jamedow.laodoufang.mapper"
+        <javaClientGenerator targetPackage="com.learning.mapper"
                              targetProject="D:/" type="XMLMAPPER">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
@@ -47,12 +49,7 @@
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"/>-->
 
-        <table tableName="recipe_comment" domainObjectName="RecipeComment"
-               enableCountByExample="true" enableUpdateByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true"
-               selectByExampleQueryId="true">
-            <!--<columnOverride column="photo" jdbcType="BLOB"/>-->
-        </table>
+        <table tableName="sys_user"/>
 
     </context>
 </generatorConfiguration>
